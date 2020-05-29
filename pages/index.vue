@@ -62,14 +62,23 @@
   </v-layout>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'nuxt-property-decorator'
+import axios from 'axios'
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
-export default {
-  components: {
-    Logo,
-    VuetifyLogo
+@Component({
+  components: { Logo, VuetifyLogo }
+})
+export default class NoticeIndex extends Vue {
+  /** lifecycle hook */
+  created() {
+    this.fetchTest()
+  }
+
+  async fetchTest() {
+    return await axios.get('/')
   }
 }
 </script>
