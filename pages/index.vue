@@ -64,7 +64,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import axios from 'axios'
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
@@ -72,13 +71,13 @@ import VuetifyLogo from '~/components/VuetifyLogo.vue'
   components: { Logo, VuetifyLogo }
 })
 export default class NoticeIndex extends Vue {
-  /** lifecycle hook */
-  created() {
-    this.fetchTest()
-  }
+  /** methods */
 
-  async fetchTest() {
-    return await axios.get('/')
+  async asyncData({ $axios }: { $axios: any }) {
+    const response = await $axios.$get('/sanctum/csrf-cookie')
+    return {
+      posts: response
+    }
   }
 }
 </script>
